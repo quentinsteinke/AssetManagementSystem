@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Add Asset</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <body>
-        <h1>Add New Asset</h1>
-        <form action="/add_asset" method="post">
-            <!-- Input fields for adding new assets go here -->
-            <input type="submit" value="Add Asset">
-        </form>
-    </body>
+<head>
+    <title>Add Asset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Add New Asset</h1>
+    <form action="/add_asset" method="post">
+        <input type="text" name="asset_name" placeholder="Asset Name" required>
+        <input type="text" name="asset_type" placeholder="Asset Type" required>
+        <input type="text" name="current_version" placeholder="Current Version" required>
+        <input type="text" name="last_modified_date" placeholder="Last Modified Date" required>
+        <input type="text" name="responsible_team_member" placeholder="Team Member Responsible" required>
+        <input type="text" name="asset_status" placeholder="Asset Status" required>
+        <input type="text" name="svn_link" placeholder="SVN Link" required>
+        <input type="text" name="notes" placeholder="Notes">
+        <input type="submit" value="Add Asset">
+    </form>
+</body>
 </html>

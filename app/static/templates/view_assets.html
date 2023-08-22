@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Assets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Assets</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Asset Name</th>
+                <th>Asset Type</th>
+                <th>Current Version</th>
+                <th>Last Modified Date</th>
+                <th>Team Member</th>
+                <th>Status</th>
+                <th>SVN Link</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in assets %}
+            <tr>
+                <td>{{ asset[1] }}</td>  <!-- assuming AssetName is the second column -->
+                <td>{{ asset[2] }}</td>  <!-- and so on for other columns... -->
+                <td>{{ asset[3] }}</td>
+                <td>{{ asset[4] }}</td>
+                <td>{{ asset[5] }}</td>
+                <td>{{ asset[6] }}</td>
+                <td>{{ asset[7] }}</td>
+                <td>{{ asset[8] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
