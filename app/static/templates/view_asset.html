@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ asset.AssetName }}</h1>
+<p>Type: {{ asset.AssetType }}</p>
+<p>Version: {{ asset.CurrentVersion }}</p>
+<!-- Add other asset details as you see fit -->
+
+<h2>Related Files</h2>
+<ul>
+    {% for file in files %}
+    <li>
+        <a href="{{ url_for('static', filename='assets/' ~ asset_id ~ '/' ~ file[2]) }}">
+            <img src="{{ url_for('static', filename='assets/' ~ asset_id ~ '/' ~ file[2]) }}" alt="{{ file[1] }}" width="100">
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

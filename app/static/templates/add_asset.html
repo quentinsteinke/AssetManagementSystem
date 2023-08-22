@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Asset</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
+<div>
     <h1>Add New Asset</h1>
-    <form action="/add_asset" method="post">
+    <form action="/add_asset" method="post" enctype="multipart/form-data">
         <input type="text" name="asset_name" placeholder="Asset Name" required>
         <input type="text" name="asset_type" placeholder="Asset Type" required>
         <input type="text" name="current_version" placeholder="Current Version" required>
@@ -15,7 +12,8 @@
         <input type="text" name="asset_status" placeholder="Asset Status" required>
         <input type="text" name="svn_link" placeholder="SVN Link" required>
         <input type="text" name="notes" placeholder="Notes">
+        <input type="file" name="asset_file">
         <input type="submit" value="Add Asset">
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

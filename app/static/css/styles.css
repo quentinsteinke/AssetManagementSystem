@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #007BFF;
+    color: white;
+    margin: 0;
+    padding: 10px 0;
+    text-align: center;
+}
+
+a {
+    background-color: #007BFF;
+    border: 1px solid #0056b3;
+    color: white;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 20px;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    text-align: left;
+}
+
+form input[type="text"] {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Dark theme styles */
+body {
+    background-color: #2c2c2c;
+    color: #ddd;
+    display: flex;
+    flex-direction: row;
+}
+
+table, th, td {
+    border-color: #555;
+}
+
+th, tr:nth-child(even) {
+    background-color: #3a3a3a;
+}
+
+a {
+    background-color: #555;
+    border-color: #333;
+}
+
+a:hover {
+    background-color: #444;
+}
+
+form input[type="text"] {
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    color: #ddd;
+}
+
+form input[type="submit"] {
+    background-color: #007BFF;
+    border: 1px solid #0056b3;
+    color: white;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+nav {
+    width: 250px; /* or whatever width you prefer */
+    height: 100vh;
+    background-color: #333; /* or your preferred color */
+    overflow-y: auto; /* for scrolling if the content overflows */
+}
+
+nav a {
+    display: block;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #555; /* or your preferred hover color */
+}
+
+main {
+    flex: 1; /* take up the rest of the space */
+    padding: 20px;
+}
