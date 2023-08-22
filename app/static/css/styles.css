@@ -12,6 +12,10 @@ h1 {
     text-align: center;
 }
 
+h1 {
+    border-radius: 0 0 5px 5px; /* Only round the bottom corners */
+}
+
 a {
     background-color: #007BFF;
     border: 1px solid #0056b3;
@@ -46,6 +50,10 @@ th {
     background-color: #007BFF;
     color: white;
     text-align: left;
+}
+
+th, td {
+    border-radius: 3px; /* Slight rounding for table cells */
 }
 
 form input[type="text"] {
@@ -98,7 +106,7 @@ form input[type="submit"] {
 }
 
 nav {
-    width: 250px; /* or whatever width you prefer */
+    width: 200px; /* or whatever width you prefer */
     height: 100vh;
     background-color: #333; /* or your preferred color */
     overflow-y: auto; /* for scrolling if the content overflows */
@@ -107,7 +115,7 @@ nav {
 nav a {
     display: block;
     color: white;
-    padding: 15px;
+    padding: 10px;
     text-decoration: none;
 }
 
@@ -115,7 +123,69 @@ nav a:hover {
     background-color: #555; /* or your preferred hover color */
 }
 
+nav {
+    border-radius: 0 5px 5px 0; /* Only round the right side corners */
+}
+
 main {
     flex: 1; /* take up the rest of the space */
     padding: 20px;
+}
+
+a, form input[type="text"], form input[type="submit"] {
+    border-radius: 5px; /* Adjust as needed, higher values make it more rounded */
+}
+
+.asset-card {
+    background-color: #555;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
+    padding: 5px;
+    transition: transform .1s;
+    width: calc(25% - 20px); /* Three cards per row, adjust as needed */
+}
+
+.asset-card:hover {
+    transform: scale(1.01);
+}
+
+.asset-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.asset-card-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.asset-details {
+    font-size: 0.9em;
+}
+
+.assets-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.asset-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.asset-card-title button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease; 
 }

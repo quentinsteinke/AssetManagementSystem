@@ -8,18 +8,28 @@ app = Flask(__name__, template_folder='static/templates')
 
 @app.route('/')
 def index():
-    # Fetch assets from the database
     db_path = os.path.join('Databases', '3d_project_database.db')
     # make db_path absolute
     db_path = os.path.join(os.path.dirname(__file__), db_path)
-
-    # print(db_path)
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM Assets')
-    assets = cursor.fetchall()
+
+    # Total assets
+    cursor.execute("SELECT COUNT(*) FROM Assets")
+    total_assets = cursor.fetchone()[0]
+
+    # Assets by type
+    cursor.execute("SELECT AssetType, COUNT(*) FROM Assets GROUP BY AssetType")
+    assets_by_type = cursor.fetchall()
+
+    # Recent additions
+    cursor.execute("SELECT * FROM Assets ORDER BY LastModifiedDate DESC LIMIT 5")
+    recent_assets = cursor.fetchall()
+
     conn.close()
-    return render_template('index.html', assets=assets)
+
+    return render_template('index.html', total_assets=total_assets, assets_by_type=assets_by_type, recent_assets=recent_assets)
+
 
 
 @app.route('/add_asset', methods=['GET', 'POST'])
@@ -100,26 +110,26 @@ def view_asset(asset_id):
     db_path = os.path.join('Databases', '3d_project_database.db')
     db_path = os.path.join(os.path.dirname(__file__), db_path)
     conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row  # Set row factory
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM Assets WHERE AssetID=?", (asset_id,))
-    asset_tuple = cursor.fetchone()
+    asset_row = cursor.fetchone()
 
     asset = {
-        "AssetID": asset_tuple[0],
-        "AssetName": asset_tuple[1],
-        "AssetType": asset_tuple[2],
-        "CurrentVersion": asset_tuple[3],
-        "LastModifiedDate": asset_tuple[4],
-        "ResponsibleTeamMember": asset_tuple[5],
-        "AssetStatus": asset_tuple[6],
-        "SVNLink": asset_tuple[7],
-        "Notes": asset_tuple[8]
+        "AssetID": asset_row["AssetID"],
+        "AssetName": asset_row["AssetName"],
+        "AssetType": asset_row["AssetType"],
+        "CurrentVersion": asset_row["CurrentVersion"],
+        "LastModifiedDate": asset_row["LastModifiedDate"],
+        "ResponsibleTeamMember": asset_row["ResponsibleTeamMember"],
+        "AssetStatus": asset_row["AssetStatus"],
+        "SVNLink": asset_row["SVNLink"],
+        "Notes": asset_row["Notes"]
     }
 
     cursor.execute("SELECT * FROM AssetFiles WHERE AssetID=?", (asset_id,))
     files = cursor.fetchall()
-    print(f"-------------------- {files}")
 
     conn.close()
 
@@ -147,6 +157,30 @@ def delete_assets():
     conn.commit()
     conn.close()
     return redirect(url_for('view_assets'))
+
+
+@app.route('/search_assets')
+def search_assets():
+    query = request.args.get('query')
+    db_path = os.path.join('Databases', '3d_project_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), db_path)
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    # Search for assets and their associated files
+    cursor.execute("""
+    SELECT Assets.*, AssetFiles.FileName
+    FROM Assets
+    LEFT JOIN AssetFiles ON Assets.AssetID = AssetFiles.AssetID
+    WHERE Assets.AssetName LIKE ?
+    """, ('%' + query + '%',))
+
+    search_results = cursor.fetchall()
+
+    conn.close()
+
+    return render_template('search_results.html', search_results=search_results)
 
 
 if __name__ == '__main__':

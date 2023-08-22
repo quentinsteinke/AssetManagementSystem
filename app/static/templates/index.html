@@ -3,9 +3,29 @@
 {% block content %}
     <div>
         <h1>3D Assets</h1>
-        <a href="/add_asset">Add New Asset</a>
-
-        <a href="/view_assets">View Assets</a>
-
     </div>
+    <h2>Dashboard Overview</h2>
+    <h2>Search Assets</h2>
+    <form action="{{ url_for('search_assets') }}" method="get">
+        <input type="text" name="query" placeholder="Search for an asset...">
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Asset Statistics</h2>
+    <p>Total Assets: {{ total_assets }}</p>
+
+    <h3>Assets by Type</h3>
+    <ul>
+        {% for asset_type, count in assets_by_type %}
+            <li>{{ asset_type }}: {{ count }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Recent Additions</h3>
+    <ul>
+        {% for asset in recent_assets %}
+        <li><a href="{{ url_for('view_asset', asset_id=asset[0]) }}">{{ asset[1] }}</a></li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Results for "{{ request.args.get('query') }}"</h2>
+
+{% if search_results %}
+    <ul>
+        {% for asset in search_results %}
+            <li>
+                <h3>{{ asset.AssetName }}</h3>
+                <img src="{{ url_for('static', filename='assets/' ~ asset.AssetID ~ '/' ~ asset.FileName) }}" alt="{{ asset.AssetName }}" width="100">
+                <p>Type: {{ asset.AssetType }}</p>
+                <p>Version: {{ asset.CurrentVersion }}</p>
+                <a href="{{ url_for('view_asset', asset_id=asset.AssetID) }}">View Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No assets found matching the search criteria.</p>
+{% endif %}
+{% endblock %}
