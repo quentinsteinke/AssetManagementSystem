@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import os
+
 
 app = Flask(__name__, template_folder='static/templates')
 
 @app.route('/')
 def index():
     # Fetch assets from the database
-    conn = sqlite3.connect('Databases/3d_project_database.db')
+    db_path = os.path.join('Databases', '3d_project_database.db')
+    print(db_path)
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM Assets')
     assets = cursor.fetchall()
@@ -17,7 +21,8 @@ def index():
 def add_asset():
     # Insert asset into the database
     asset_data = request.form
-    conn = sqlite3.connect('Databases/3d_project_database.db')
+    db_path = os.path.join('Databases', '3d_project_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute('''
     INSERT INTO Assets (AssetName, AssetType, CurrentVersion, LastModifiedDate, ResponsibleTeamMember, AssetStatus, SVNLink, Notes)
