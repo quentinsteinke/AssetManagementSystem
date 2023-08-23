@@ -7,22 +7,18 @@
     <form action="/delete_assets" method="post">
         <div class="assets-container">
             {% for asset in assets %}
-            <div class="asset-card">
+            <thead>
                 <!-- Checkbox for selecting the asset for deletion -->
                 <input type="checkbox" name="selected_assets" value="{{ asset[0] }}">
 
                 <!-- Display asset image -->
                 <img src="{{ url_for('static', filename='assets/' ~ asset.AssetID ~ '/' ~ asset.FileName) }}" alt="{{ asset.AssetName }}" width="100">
 
-                <div class="asset-card-title">
+                <div>
                     <a href="{{ url_for('view_asset', asset_id=asset[0]) }}">{{ asset[1] }}</a>
-                    <!-- Dropdown Toggle Button -->
-                    <button type="button" onclick="toggleDropdown({{ asset[0] }})">▼</button>
-
                 </div>
 
-                <!-- Dropdown content -->
-                <div id="dropdown-{{ asset[0] }}" class="dropdown-content" style="display: none;">
+                <div>
                     <p>Type: {{ asset[2] }}</p>
                     <p>Version: {{ asset[3] }}</p>
                     <p>Last Modified Date: {{ asset[4] }}</p>
@@ -31,12 +27,10 @@
                     <p>SVN Link: {{ asset[7] }}</p>
                     <p>Notes: {{ asset[8] }}</p>
                 </div>
-            </div>
+            </thead>
             {% endfor %}
         </div>
         <input type="submit" value="Delete Selected">
     </form>
-    
-    <script src="{{ url_for('static', filename='dropdown.js') }}"></script>
 </div>
 {% endblock %}

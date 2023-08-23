@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <h1>Create New Project</h1>
+    <form action="/create_project" method="post">
+        <input type="text" name="ProjectName" placeholder="Project Name" required><br><br>
+        
+        <textarea name="ProjectDescription" placeholder="Project Description" rows="4" cols="50"></textarea><br><br>
+        
+        <input type="date" name="StartDate" placeholder="Start Date"><br><br>
+        
+        <input type="date" name="EndDate" placeholder="End Date"><br><br>
+        
+        <select name="Status">
+            <option value="Ongoing">Ongoing</option>
+            <option value="Completed">Completed</option>
+            <option value="On Hold">On Hold</option>
+        </select><br><br>
+        
+        <input type="submit" value="Create Project">
+    </form>
+</div>
+{% endblock %}

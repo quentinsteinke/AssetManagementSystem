@@ -3,16 +3,24 @@
 {% block content %}
 <div>
     <h1>Add New Asset</h1>
-    <form action="/add_asset" method="post" enctype="multipart/form-data">
-        <input type="text" name="asset_name" placeholder="Asset Name" required>
-        <input type="text" name="asset_type" placeholder="Asset Type" required>
-        <input type="text" name="current_version" placeholder="Current Version" required>
-        <input type="text" name="last_modified_date" placeholder="Last Modified Date" required>
-        <input type="text" name="responsible_team_member" placeholder="Team Member Responsible" required>
-        <input type="text" name="asset_status" placeholder="Asset Status" required>
-        <input type="text" name="svn_link" placeholder="SVN Link" required>
-        <input type="text" name="notes" placeholder="Notes">
-        <input type="file" name="asset_file">
+    <form action="{{ url_for('add_asset', project_id=selected_project_id) }}" method="post">
+        <input type="text" name="AssetName" placeholder="Asset Name" required><br><br>
+        <input type="text" name="AssetType" placeholder="Asset Type" required><br><br>
+        <input type="text" name="CurrentVersion" placeholder="Current Version"><br><br>
+        <input type="date" name="LastModifiedDate" placeholder="Last Modified Date"><br><br>
+        <input type="text" name="ResponsibleTeamMember" placeholder="Responsible Team Member"><br><br>
+        <select name="AssetStatus">
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="On Hold">On Hold</option>
+        </select><br><br>
+        <!-- Dropdown for selecting a project -->
+        <select name="ProjectID" {% if selected_project_id %}disabled{% endif %}>
+            <option value="">-- Select Project --</option>
+            {% for project in projects %}
+            <option value="{{ project[0] }}" {% if project[0] == selected_project_id %}selected{% endif %}>{{ project[1] }}</option>  <!-- ProjectID and ProjectName -->
+            {% endfor %}
+        </select><br><br>
         <input type="submit" value="Add Asset">
     </form>
 </div>
