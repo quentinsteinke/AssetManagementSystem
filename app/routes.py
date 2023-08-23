@@ -75,8 +75,27 @@ def view_assets():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM Assets')
-    assets = cursor.fetchall()
-    # print(assets)
+
+    sort_by = request.args.get('sort-by')
+    direction = request.args.get('direction', default='asc')
+
+    sort_column_mapping = {
+        'select': 'AssetID',
+        'asset-name': 'AssetName',
+        'asset-type': 'AssetType',
+        'current-version': 'CurrentVersion',
+        'last-modified-date': 'LastModifiedDate',
+        'responsible-team-member': 'ResponsibleTeamMember',
+        'asset-status': 'AssetStatus',
+        'responsible-team-member': 'ResponsibleTeamMember',
+        'project-name': 'ProjectName',
+        'status': 'Status'
+    }
+
+    order_by_column = sort_column_mapping.get(sort_by, 'AssetName')
+
+    assets = cursor.execute(f'SELECT * FROM Assets ORDER BY {order_by_column} {direction}').fetchall()
+    
     conn.close()
 
     return render_template('view_assets.html', assets=assets)

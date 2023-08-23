@@ -135,3 +135,18 @@ main {
 a, form input[type="text"], form input[type="submit"] {
     border-radius: 5px; /* Adjust as needed, higher values make it more rounded */
 }
+
+
+/* Table Header Button Styles */
+thead th {
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+thead th:hover {
+    background-color: #555;
+}
+
+thead th:active {
+    background-color: #555;
+}
